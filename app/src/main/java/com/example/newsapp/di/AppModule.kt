@@ -32,4 +32,5 @@ class AppModule {
     fun provideRertrofit(baseUrl: String): NewsService =
         Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient()).build().create(NewsService::class.java)
+
 }
