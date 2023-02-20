@@ -1,7 +1,6 @@
 package com.example.newsapp.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.OnReceiveContentListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -15,9 +14,7 @@ import com.example.newsapp.models.Article
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    inner class NewsViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
-    }
+    inner class NewsViewHolder(view: View): RecyclerView.ViewHolder(view)
 
     private val callBack = object : DiffUtil.ItemCallback<Article>(){
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -57,12 +54,20 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             articleImage.clipToOutline = true
             articleTitle.text = article.title
             articleDate.text = article.publishedAt
+
+            setOnClickListener{
+                onItemClickListener.let {
+                    if (it != null) {
+                        it(article)
+                    }
+                }
+            }
         }
     }
 
     private var onItemClickListener: ((Article)-> Unit)? = null
 
-    fun setOnItemClickListiner(listener: (Article) -> Unit){
+    fun setOnItemClickListener(listener: (Article) -> Unit){
         onItemClickListener = listener
     }
 
